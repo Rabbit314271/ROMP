@@ -105,7 +105,7 @@ class ResultParser(nn.Module):
         if use_transform:
             batch, channel = maps.shape[:2]
             maps = maps.view(batch, channel, -1).permute((0, 2, 1)).contiguous()
-        results = maps[batch_ids,flat_inds].contiguous()
+            results=0.7*maps[batch_ids,flat_inds].contiguous()+0.15*maps[batch_ids,flat_inds+640].contiguous()+0.15*maps[batch_ids,flat_inds-640].contiguous()
         return results
 
     def reorganize_gts(self, meta_data, key_list, batch_ids):
